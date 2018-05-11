@@ -35,8 +35,8 @@ rule star:
         else:
             shell("scif run STAR '--genomeDir $SCIF_DATA/{params.star_index} --outFileNamePrefix $SCIF_DATA/{wildcards.reads}_ --readFilesIn $SCIF_DATA/{input} --runThreadN {threads} --outSAMtype BAM Unsorted --readFilesCommand zcat'")
         shell("""
-              mv $SCIF_DATA/{wildcards.reads}_Aligned.out.bam $SCIF_DATA/{output.bam_file}
-              mv $SCIF_DATA/{wildcards.reads}_Log.final.out $SCIF_DATA/{wildcards.reads}_Log.out $SCIF_DATA/{wildcards.reads}_Log.progress.out $SCIF_DATA/{wildcards.reads}_SJ.out.tab $SCIF_DATA/{params.logdir}
+              mv {wildcards.reads}_Aligned.out.bam {output.bam_file}
+              mv {wildcards.reads}_Log.final.out {wildcards.reads}_Log.out {wildcards.reads}_Log.progress.out {wildcards.reads}_SJ.out.tab {params.logdir}
               """)
 
 rule sort_bam:
@@ -49,7 +49,7 @@ rule sort_bam:
     shell:
         """
         scif run samtools 'sort -o $SCIF_DATA/{output} -@ {threads} $SCIF_DATA/{input}'
-        rm $SCIF_DATA/{input}
+        rm {input}
         """
 
 rule make_tag_dir:
@@ -69,7 +69,7 @@ rule copy_logs:
     output:
         "tag_directories/{sample}/{sample}_Log.final.out"
     shell:
-        "cp $SCIF_DATA/{input.log_file} $SCIF_DATA/{input.tag_dir}"
+        "cp {input.log_file} {input.tag_dir}"
 
 rule run_kallisto:
     input:
@@ -103,7 +103,7 @@ rule summarize_logs:
     output:
         "aligned_files/logs/summarized_log.txt"
     shell:
-        "python concatenate_logs.py $SCIF_DATA/{output} $SCIF_DATA/{input}"
+        "python concatenate_logs.py {output} {input}"
 
 rule summarize_gene_exp:
     input:
@@ -112,4 +112,4 @@ rule summarize_gene_exp:
         count_name="gene_exp/counts.txt",
         tpm_name="gene_exp/tpm.txt"
     shell:
-        "python summarize_gene_exp.py $SCIF_DATA/{output.count_name} $SCIF_DATA/{output.tpm_name} $SCIF_DATA/{input}"
+        "python summarize_gene_exp.py {output.count_name} {output.tpm_name} {input}"
