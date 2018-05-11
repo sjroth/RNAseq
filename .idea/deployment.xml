@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" autoUpload="Always" serverName="sjroth@unknowme:22 (2)" autoUploadExternalChanges="true">
+    <serverData>
+      <paths name="sftp://sjroth@unknowme:22/gpfs/data01/sjroth/software/anaconda3/bin/python3.6">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/gpfs/data01/sjroth/Pipelines/RNAseq" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="sjroth@unknowme:22 (2)">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/gpfs/data01/sjroth/Pipelines/RNAseq" local="$PROJECT_DIR$" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+    <option name="myAutoUpload" value="ALWAYS" />
+  </component>
+</project>

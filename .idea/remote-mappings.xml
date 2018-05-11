@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="RemoteMappingsManager">
+    <list>
+      <list>
+        <remote-mappings server-id="python@73cb9ccf-d8a2-46e7-b98a-d1c06aae1bba" />
+        <remote-mappings server-id="python@sftp://sjroth@unknowme:22/gpfs/data01/sjroth/software/anaconda3/bin/python3.6">
+          <settings>
+            <list>
+              <mapping local-root="$PROJECT_DIR$" remote-root="/gpfs/data01/sjroth/Pipelines/RNAseq" />
+            </list>
+          </settings>
+        </remote-mappings>
+        <remote-mappings server-id="python@sftp://sjroth@unknowme:22/gpfs/data01/sjroth/software/miniconda3/bin/python3.6">
+          <settings>
+            <list>
+              <mapping local-root="$PROJECT_DIR$" remote-root="/gpfs/data01/sjroth/Pipelines/RNAseq" />
+            </list>
+          </settings>
+        </remote-mappings>
+      </list>
+    </list>
+  </component>
+</project>
