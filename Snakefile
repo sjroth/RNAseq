@@ -58,9 +58,9 @@ rule make_tag_dir:
     output:
         "tag_directories/{sample}"
     params:
-        other_cmds=config["tag_dir_cmds"]
+        config["tag_dir_cmds"]
     shell:
-        "scif run makeTagDirectory '$SCIF_DATA/{output} {params.other_cmds} $SCIF_DATA/{input}'"
+        "scif run makeTagDirectory '$SCIF_DATA/{output} {params} $SCIF_DATA/{input}'"
 
 rule copy_logs:
     input:
@@ -93,9 +93,9 @@ rule make_bigwig:
     output:
         "tag_directories/{sample}/track_info.txt"
     params:
-        chrom_sizes="chrom.sizes"
+        "chrom.sizes"
     shell:
-        "scif run makeUCSCfile '$SCIF_DATA/{input} -o auto -bigWig $SCIF_DATA/{params.chrom_sizes} -fsize 1e20 -strand both > $SCIF_DATA/{output}'"
+        "scif run makeUCSCfile '$SCIF_DATA/{input} -o auto -bigWig $SCIF_DATA/{params} -fsize 1e20 -strand both > $SCIF_DATA/{output}'"
 
 rule summarize_logs:
     input:
