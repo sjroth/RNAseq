@@ -37,11 +37,8 @@ def main():
                          int(log_dict["Number of reads mapped to multiple loci"]) - \
                          int(log_dict["Number of reads mapped to too many loci"])
         percent_unmapped = round(unmapped_reads / float(log_dict["Number of input reads"]) * 100, 2)
-        if log_file[:5] == "/scif":
-            log_file_name = log_file[30:-14]
-        else:
-            log_file_name = log_file[19:-14]
-        out.write(f"\n{log_file_name}\t{log_dict['Number of input reads']}\t{log_dict['Uniquely mapped reads number']}\t{log_dict['Uniquely mapped reads %']}\t{log_dict['Number of reads mapped to multiple loci']}\t{log_dict['% of reads mapped to multiple loci']}\t{unmapped_reads}%\t{percent_unmapped}%\n")
+        log_file_name = log_file[19:-14]
+        out.write(f"\n{log_file_name}\t{log_dict['Number of input reads']}\t{log_dict['Uniquely mapped reads number']}\t{log_dict['Uniquely mapped reads %']}\t{log_dict['Number of reads mapped to multiple loci']}\t{log_dict['% of reads mapped to multiple loci']}\t{unmapped_reads}%\t{percent_unmapped}%")
     out.close()
 
 if __name__ == '__main__':

@@ -16,10 +16,7 @@ def condense_gene_exp(output_dirs):
         df = pd.read_csv(count_dir + '/abundance.tsv', sep='\t')
         df.target_id = df.target_id.apply(lambda x: x.split('|')[0])
 
-        if count_dir[:5] == '/scif':
-            colname = count_dir[20:]
-        else:
-            colname = count_dir[9:]
+        colname = count_dir[9:]
 
         count_df = df[['target_id', 'est_counts']].copy()
         count_df.columns = ['Gene', colname]

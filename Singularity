@@ -29,6 +29,8 @@ From: continuumio/miniconda3
 	/opt/conda/bin/conda install --yes snakemake=4.6.0
 	/opt/conda/bin/conda install --yes docutils=0.14
 
+	#Clean up conda to help with space.
+	/opt/conda/bin/conda clean --all --yes
 
 %runscript
 	exec scif "$@"
