@@ -95,7 +95,12 @@ rule make_bigwig:
     params:
         "chrom.sizes"
     shell:
-        "scif run makeUCSCfile '$SCIF_DATA/{input} -o auto -bigWig $SCIF_DATA/{params} -fsize 1e20 -strand both > $SCIF_DATA/{output}'"
+        """
+        scif run makeUCSCfile '$SCIF_DATA/{input} -o $SCIF_DATA/{input}/{wildcards.sample}.pos.bigWig -bigWig $SCIF_DATA/{params} -fsize 1e20 -strand + > $SCIF_DATA/{input}/pos.txt'
+        scif run makeUCSCfile '$SCIF_DATA/{input} -o $SCIF_DATA/{input}/{wildcards.sample}.neg.bigWig -bigWig $SCIF_DATA/{params} -fsize 1e20 -strand - > $SCIF_DATA/{input}/neg.txt'
+        cat {input}/pos.txt {input}/neg.txt > {output}
+        rm {input}/pos.txt {input}/neg.txt
+        """
 
 rule summarize_logs:
     input:
