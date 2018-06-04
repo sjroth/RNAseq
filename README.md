@@ -53,6 +53,11 @@ Do this inside the directory and it will generate the rnaseq.simg file. This tak
 ```
 scp rnaseq.simg PARENT_DIRECTORY
 ```
+Once you have the simg file, do a dry run in order to test that everything is in the right place.
+```
+singularity run --bind data/:/scif/data chipseq.simg run snakemake '-n'
+```
+This will deposit the config file in your data folder so that you can edit it with the shell.
 ## Running the pipeline
 It is recommended that you run this pipeline outside the Singularity environment. You also need to specify the number of cpus to use on this job. With the current setting, the maximum is 50. Here is how you run the pipeline:
 ```
