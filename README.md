@@ -55,7 +55,7 @@ scp rnaseq.simg PARENT_DIRECTORY
 ```
 Once you have the simg file, do a dry run in order to test that everything is in the right place.
 ```
-singularity run --bind data/:/scif/data chipseq.simg run snakemake '-n'
+singularity run --bind data/:/scif/data rnaseq.simg run snakemake '-n'
 ```
 This will deposit the config file in your data folder so that you can edit it with the shell.
 ## Running the pipeline
