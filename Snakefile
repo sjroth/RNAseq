@@ -31,12 +31,21 @@ rule star:
         50
     run:
         if config["paired_end"]:
-            shell("scif run STAR '--genomeDir $SCIF_DATA/{params.star_index} --outFileNamePrefix $SCIF_DATA/{wildcards.reads}_ --readFilesIn $SCIF_DATA/{input[0]} $SCIF_DATA/{input[1]} --runThreadN {threads} --outSAMtype BAM Unsorted --readFilesCommand zcat'")
+            shell("""
+            scif run STAR '--genomeDir $SCIF_DATA/{params.star_index} --outFileNamePrefix $SCIF_DATA/{wildcards.reads}_ \
+            --readFilesIn $SCIF_DATA/{input[0]} $SCIF_DATA/{input[1]} --runThreadN {threads} --outSAMtype BAM Unsorted \
+            --readFilesCommand zcat'
+            """)
         else:
-            shell("scif run STAR '--genomeDir $SCIF_DATA/{params.star_index} --outFileNamePrefix $SCIF_DATA/{wildcards.reads}_ --readFilesIn $SCIF_DATA/{input} --runThreadN {threads} --outSAMtype BAM Unsorted --readFilesCommand zcat'")
+            shell("""
+            scif run STAR '--genomeDir $SCIF_DATA/{params.star_index} --outFileNamePrefix $SCIF_DATA/{wildcards.reads}_ \
+            --readFilesIn $SCIF_DATA/{input} --runThreadN {threads} --outSAMtype BAM Unsorted --readFilesCommand zcat'
+            """)
+
         shell("""
               mv {wildcards.reads}_Aligned.out.bam {output.bam_file}
-              mv {wildcards.reads}_Log.final.out {wildcards.reads}_Log.out {wildcards.reads}_Log.progress.out {wildcards.reads}_SJ.out.tab {params.logdir}
+              mv {wildcards.reads}_Log.final.out {wildcards.reads}_Log.out {wildcards.reads}_Log.progress.out \
+              {wildcards.reads}_SJ.out.tab {params.logdir}
               """)
 
 rule sort_bam:
@@ -83,9 +92,15 @@ rule run_kallisto:
         5
     run:
         if config["paired_end"]:
-            shell("scif run kallisto 'quant -i $SCIF_DATA/{params.kallisto_index} -o $SCIF_DATA/{output} -t {threads} {params.other_cmds} $SCIF_DATA/{input[0]} $SCIF_DATA/{input[1]}'")
+            shell("""
+            scif run kallisto 'quant -i $SCIF_DATA/{params.kallisto_index} -o $SCIF_DATA/{output} -t {threads} \
+            {params.other_cmds} $SCIF_DATA/{input[0]} $SCIF_DATA/{input[1]}'
+            """)
         else:
-            shell("scif run kallisto 'quant -i $SCIF_DATA/{params.kallisto_index} -o $SCIF_DATA/{output} -t {threads} {params.other_cmds} $SCIF_DATA/{input}'")
+            shell("""
+            scif run kallisto 'quant -i $SCIF_DATA/{params.kallisto_index} -o $SCIF_DATA/{output} -t {threads} \
+            {params.other_cmds} $SCIF_DATA/{input}'
+            """)
 
 rule make_bigwig:
     input:
@@ -96,8 +111,10 @@ rule make_bigwig:
         "chrom.sizes"
     shell:
         """
-        scif run makeUCSCfile '$SCIF_DATA/{input} -o $SCIF_DATA/{input}/{wildcards.sample}.pos.bigWig -bigWig $SCIF_DATA/{params} -fsize 1e20 -strand + > $SCIF_DATA/{input}/pos.txt'
-        scif run makeUCSCfile '$SCIF_DATA/{input} -o $SCIF_DATA/{input}/{wildcards.sample}.neg.bigWig -bigWig $SCIF_DATA/{params} -fsize 1e20 -strand - > $SCIF_DATA/{input}/neg.txt'
+        scif run makeUCSCfile '$SCIF_DATA/{input} -o $SCIF_DATA/{input}/{wildcards.sample}.pos.bigWig -bigWig \
+        $SCIF_DATA/{params} -fsize 1e20 -strand + > $SCIF_DATA/{input}/pos.txt'
+        scif run makeUCSCfile '$SCIF_DATA/{input} -o $SCIF_DATA/{input}/{wildcards.sample}.neg.bigWig -bigWig \
+        $SCIF_DATA/{params} -fsize 1e20 -strand - > $SCIF_DATA/{input}/neg.txt'
         cat {input}/pos.txt {input}/neg.txt > {output}
         rm {input}/pos.txt {input}/neg.txt
         """
