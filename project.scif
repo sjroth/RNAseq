@@ -25,7 +25,7 @@
 	    cd $SCIF_DATA
 	    exec /opt/conda/bin/STAR "$@"
 %applabels STAR
-	    VERSION 2.5.4a
+	    VERSION 2.7.0a
 %apptest STAR
 	    STAR "$@"
 
