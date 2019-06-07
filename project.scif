@@ -18,7 +18,7 @@
 
 %appinstall STAR
 	    # Install STAR
-	    /opt/conda/bin/conda install --yes star=2.5.4a
+	    /opt/conda/bin/conda install --yes star=2.7.0a
 %apphelp STAR
 	    STAR Aligner
 %apprun STAR
